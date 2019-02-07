@@ -1,0 +1,6 @@
+name: ironclad
+recipe: pantheon
+config:
+  framework: drupal8
+  site: ironclad
+  id: f86bf2d9-a788-42e3-86e7-2d5c64b9b0bd
