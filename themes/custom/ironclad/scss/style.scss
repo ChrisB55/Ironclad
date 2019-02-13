@@ -24,13 +24,13 @@ a {
 .bg-inverse {
     background: $primary-shade !important;
 }
-
+//assign variables later
 .site-footer {
-    background: $accent-shade !important;
+    background: gray;
 }
 
 .menu--main li a {
-    color: $primary-shade;
+    color: white;
 }
 
 .menu--account li a {

@@ -1,7 +1,16 @@
 /* ------------------ Header ------------------ */
 
 #navbar-top {
-    padding: 0 1rem;
+    padding: 0 .5rem;
+    background-color: darkgreen;
+    color: white;
+
+}
+
+.navbar {
+    background-color: lightgreen;
+    color:white;
+    font-size: 18px;
 }
 
 #navbar-top.navbar-dark .nav-link:hover,
