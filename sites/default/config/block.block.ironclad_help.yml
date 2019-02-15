@@ -1,0 +1,22 @@
+uuid: 6e8fde53-83c8-4b48-a5e6-b2e175d0b5aa
+langcode: en
+status: true
+dependencies:
+  module:
+    - help
+  theme:
+    - ironclad
+_core:
+  default_config_hash: 8I8iACSa0sKO3k3jlvUG1ge52rfcKX7USJAQYnzuBgg
+id: ironclad_help
+theme: ironclad
+region: content
+weight: -30
+provider: null
+plugin: help_block
+settings:
+  id: help_block
+  label: Help
+  provider: help
+  label_display: '0'
+visibility: {  }
