@@ -1,0 +1,5 @@
+name: Publica Module
+type: module
+description: "Demo"
+package: Sample
+core: 8.x
