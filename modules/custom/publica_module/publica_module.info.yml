@@ -1,5 +1,5 @@
 name: Publica Module
 type: module
-description: "Demo"
+description: "Simple Counting Module"
 package: Sample
 core: 8.x

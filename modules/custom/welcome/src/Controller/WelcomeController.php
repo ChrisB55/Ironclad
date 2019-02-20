@@ -18,7 +18,7 @@ class WelcomeController extends ControllerBase {
   public function welcome() {
     return [
       '#type' => 'markup',
-      '#markup' => $this->t('Implement method: welcome')
+      '#markup' => $this->t('Hello World')
     ];
   }
 
