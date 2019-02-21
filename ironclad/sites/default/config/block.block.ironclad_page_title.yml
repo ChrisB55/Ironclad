@@ -1,0 +1,20 @@
+uuid: 72abc695-e70a-40bd-8be5-f9b534548653
+langcode: en
+status: true
+dependencies:
+  theme:
+    - ironclad
+_core:
+  default_config_hash: 7rR9chwXvdM2H8OYMAYx9Zj3GGlPMrZp_M3ZA4thYTk
+id: ironclad_page_title
+theme: ironclad
+region: content
+weight: -50
+provider: null
+plugin: page_title_block
+settings:
+  id: page_title_block
+  label: 'Page title'
+  provider: core
+  label_display: '0'
+visibility: {  }
