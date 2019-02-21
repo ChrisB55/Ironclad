@@ -1,6 +1,0 @@
-publica_module:
-  path: /the/demo/{count}
-  defaults:
-    _controller: Drupal\publica_module\Controller\PublicaController::helloworld
-  requirements:
-    _permission: 'access content'
