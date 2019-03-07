@@ -97,10 +97,11 @@
   </header>
   <div{{ content_attributes.addClass('node__content', 'clearfix') }}>
     <div id="react-app">
-     
     </div>
-      <hr /> 
-      {{ content }}
+    <div id="react-content" class="invisible" data-title="{{ node.label }}">
+    {{ content }}
+    </div>
   </div>
 </article>
+
 
