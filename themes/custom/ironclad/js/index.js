@@ -1,98 +1,119 @@
-class ShowNodeContent extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      status: 0,
-    };
-    this.showContent = this.showContent.bind(this);
-    this.hideContent = this.hideContent.bind(this);
-  }
-
-  showContent() {
-    this.setState({status: 1});
-  }
-  hideContent() {
-    this.setState({status: 0});
-  }
-
+class NodeItem extends React.Component {
   render() {
-    var style = {
-      active: {
-        width: '200px',
-        height: '40px',
-        padding: '10px',
-        margin: '10px',
-        color: '#333',
-        backgroundColor: '#ddd',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignSelf: 'center',
-      },
-      inactive: {
-        width: '200px',
-        height: '40px',
-        padding: '10px',
-        margin: '10px',
-        color: '#666',
-        backgroundColor: '#ccc',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignSelf: 'center',
-      },
-      content: {
-        margin: '30px',
-        padding: '30px',
-        backgroundColor: '#eee',
-        border: '5px solid black'
-      }
-    };
-
     return (
       <div>
-        {this.state.status === 1 &&
-          <div>
-            <button
-              onClick={this.hideContent}
-              style={style.inactive}
-            >
-              Hide content
-            </button>
-            <div
-              style={style.content}
-              dangerouslySetInnerHTML={{__html: this.props.content }}
-            />
-          </div>
-        }
-        {this.state.status === 0 &&
-          <button
-            onClick={this.showContent}
-            style={style.active}
-          >
-            Show more
-          </button>
-        }
+        <h2>{this.props.attributes.title}</h2>
+        {this.props.attributes.body && (
+          <div
+            dangerouslySetInnerHTML={{
+              __html: this.props.attributes.body.value
+            }}
+          />
+        )}
       </div>
     );
   }
 }
 
-class NodeContent extends React.Component {
+class NoData extends React.Component {
   render() {
+    return <div>No articles found.</div>;
+  }
+}
+
+class NodeList extends React.Component {
+  constructor() {
+    super();
+    this.state = { data: null };
+    this.loadNodeData = this.loadNodeData.bind(this);
+    this.updateData = this.updateData.bind(this);
+    this.checkInvalidData = this.checkInvalidData.bind(this);
+  }
+
+  componentWillMount() {
+    this.loadNodeData();
+  }
+
+  loadNodeData() {
+    const API_ROOT = 'http://dev-ironclad.pantheonsite.io/jsonapi/';
+    const url = `${API_ROOT}node/article`;
+
+    fetch(url)
+      .then(function(response) {
+        return response.json();
+      })
+      .then(data => this.updateData(data))
+      .catch(err => console.log('API got an error', err));
+  }
+
+  updateData(responseData) {
+    console.log(responseData);
+    const validatedData = this.checkInvalidData(responseData);
+    if (validatedData) {
+      this.setState({ data: responseData.data }, () => console.log(this.state));
+    }
+  }
+
+  checkInvalidData(data) {
+    if (data === null) {
+      return false;
+    }
+    if (
+      data.data === undefined ||
+      data.data === null ||
+      data.data.length === 0
+    ) {
+      return false;
+    }
+    return true;
+  }
+
+  render() {
+    const style = {
+      nodeItem: {
+        border: '2px solid black',
+        margin: '10px',
+        padding: '10px',
+        backgroundColor: '#ccc'
+      },
+      nodeItemActive: {
+        border: '2px solid black',
+        margin: '10px',
+        padding: '10px',
+        backgroundColor: '#fff'
+      }
+    };
+
     return (
       <div>
-        <h1>{this.props.title}</h1>
-        <ShowNodeContent {...this.props} />
+        <h2>Site content</h2>
+
+        {this.state.data !== null ? (
+          this.state.data.map(item => {
+            let className = 'nodeItem';
+            let current = false;
+            if (Number(this.props.nid) === Number(item.attributes.nid)) {
+              className = 'nodeItemActive';
+              current = true;
+            }
+            return (
+              <div style={style[className]}>
+                {' '}
+                <NodeItem current={current} {...item} />{' '}
+              </div>
+            );
+          })
+        ) : (
+          <NoData />
+        )}
       </div>
     );
   }
 }
 
 ReactDOM.render(
-  <NodeContent
-    title={document.getElementById('react-content').getAttribute("data-title")}
-    content={document.getElementById('react-content').innerHTML}
+  <NodeList
+    nid={document.getElementById('react-app').getAttribute('data-nid')}
   />,
   document.getElementById('react-app')
 );
