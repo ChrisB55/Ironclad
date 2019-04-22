@@ -1,0 +1,10 @@
+parameters:
+   # Allows CORS for authenticated user, https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS
+  cors.config:
+    enabled: true
+    allowedHeaders: ['x-csrf-token', 'content-type']
+    allowedMethods: ['GET', 'POST', 'PATCH', 'DELETE']
+    allowedOrigins: ['http://localhost:3000']
+    exposedHeaders: false
+    maxAge: false
+    supportsCredentials: true
