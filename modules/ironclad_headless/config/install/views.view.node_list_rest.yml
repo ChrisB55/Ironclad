@@ -6,7 +6,7 @@ dependencies:
     - core.entity_view_mode.node.teaser
   enforced:
     module:
-      - headless
+      - ironclad_headless
   module:
     - node
     - rest

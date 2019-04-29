@@ -4,7 +4,7 @@ status: true
 dependencies:
   enforced:
     module:
-      - headless
+      - ironclad_headless
   module:
     - node
     - serialization
@@ -22,3 +22,4 @@ configuration:
     - json
   authentication:
     - cookie
+#
