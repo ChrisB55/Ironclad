@@ -1,0 +1,9 @@
+name: Ironclad Headless Module
+description: A module enabling headless Drupal developmnet 
+type: module
+core: 8.x
+dependencies:
+  - rest
+  - serialization
+  - node
+  - user
