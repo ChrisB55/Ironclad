@@ -1,9 +1,7 @@
 import axios from 'axios'
 import config from './config'
 
-
 let singleton = null
-
 
 export default async () => {
     if (!singleton) {
