@@ -12,6 +12,7 @@ const App = () => (
         <div className="header">Ironclad Headless React App </div>
         <div className="content">
             <NodeList />
+            <NodeForm />
         </div>
         <div className="info">Basic Info: This app is a React based App that can can interact with the associated Drupal installation, if the user is logged in with appropriate user permissions. It uses axios and the
 RESTful Web Services, serialization  and a custom module to enable the data to move between applications without triggering a CORS error.
@@ -81,7 +82,7 @@ class NodeList extends React.Component {
                             <div className="row" key={index}>
                                 <ul>
                                     <li>{node.nid} </li>
-                                    <li><a href={node.path} target="_blank">{node.title} </a></li>
+                                    <li><a href={node.path} >{node.title} </a></li>
                                     <li><button onClick={e => deleteNode(node.nid)}> x </button></li>
                                 </ul>
                             </div>
@@ -92,7 +93,54 @@ class NodeList extends React.Component {
         )
     }
 }
+const NodeForm = () => {
+    const data = {}
 
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        var node = {
+            type: [{
+                target_id: 'article',
+                target_type: 'node_type',
+            }],
+            title: [{
+                value: data.title,
+            }],
+            body: [{
+                value: data.body,
+                format: 'plain_text',
+            }],
+        };
+        try {
+            const axios = await ajax()
+            const response = await axios.post('/node', node)
+            console.log('Node created: ', response)
+            emitter.emit('NODE_UPDATED')
+        } catch (e) {
+            alert(e)
+        }
+    }
+    const handleChange = (e, propName) => {
+        data[propName] = e.target.value
+    }
+
+    return (
+        <div>
+            <h4>Create New Content</h4>
+            <form onSubmit={handleSubmit}>
+                <label>Title</label>
+                <br />
+                <input type="text" onChange={e => handleChange(e, 'title')}></input>
+                <br />
+                <label>Body</label>
+                <br />
+                <textarea onChange={e => handleChange(e, 'body')}></textarea>
+                <br />
+                <button type="submit">Create</button>
+            </form>
+        </div>
+    )
+}
 
 ReactDOM.render(<App />, document.getElementById('root'))
 
