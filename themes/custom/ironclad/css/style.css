@@ -10207,12 +10207,12 @@ form .form-type-textarea {
 /* ------------------ Header ------------------ */
 #navbar-top {
   padding: 0 0.5rem;
-  background-color: darkgreen;
+  background-color: #343a40;
   color: white;
 }
 
 .navbar {
-  background-color: lightgreen;
+  background-color: #343a40;
   color: white;
   font-size: 18px;
 }
